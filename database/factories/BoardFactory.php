@@ -3,7 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Owner;
+// use App\Models\Owner;
+use App\Models\User;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Board>
@@ -20,7 +21,7 @@ class BoardFactory extends Factory
         return [
           'title' => fake()->title(),
           'description' => fake()->paragraph(),
-          'owner_id' => Owner::factory(),
+          'owner_id' => User::factory(),
         ];
     }
 }

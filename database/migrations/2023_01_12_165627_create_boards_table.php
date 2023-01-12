@@ -17,10 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->foreignId('owner_id');
+            $table->foreignId('user_id');
+            // $table->foreignId('owner_id');
             $table->timestamps();
 
-            $table->foreign('owner_id')->references('id')->on('owners')
+            // $table->foreign('owner_id')->references('id')->on('owners')
+            // ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')
             ->onDelete('cascade');
         });
     }

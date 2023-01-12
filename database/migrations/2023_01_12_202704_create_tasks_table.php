@@ -19,7 +19,7 @@ return new class extends Migration
             $table->longText('description');
             $table->string('image')->nullable();
             $table->date('due_date')->nullable();
-            $table->string('current_status')->default('to_do');
+            $table->string('current_status')->default('to-do');
             // $table->foreignId('developer_id');
             // $table->foreignId('tester_id');
             $table->foreignId('user_id');

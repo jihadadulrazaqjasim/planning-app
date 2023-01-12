@@ -16,7 +16,7 @@ class Status extends Model
     ];
 
     
-    public function board(): BelongsTo
+    public function board()
     {
         return $this->belongsTo(Board::class);
     }

@@ -9,7 +9,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected fillable =[
+    protected $fillabel =[
         'title',
         'description',
         'image',
@@ -34,4 +34,5 @@ class Task extends Model
     {
         return $this->hasMany(Lable::class);
     }
+
 }

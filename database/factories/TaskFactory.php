@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
- use App\Models\User;
+use App\Models\User;
 use App\Models\Board;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
@@ -20,9 +20,8 @@ class TaskFactory extends Factory
         return [
             'title' => fake()->title(),
             'description' => fake()->paragraph(),
-            'image' => null,
-            'due_date'=> null,
-            'current_status'=> null,
+            
+            'current_status'=> fake()->name(),
             'user_id' => User::factory(),
             'user_id' => Board::factory(),
         ];
