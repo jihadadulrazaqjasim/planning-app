@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "ccbd816a07b206f971042295b899d1ba",
-=======
     "content-hash": "419c686e02a8151c8fbf0d4ac2f988c7",
->>>>>>> add_passport
     "packages": [
         {
             "name": "brick/math",
@@ -67,8 +63,6 @@
             "time": "2022-08-10T22:54:19+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "defuse/php-encryption",
             "version": "v2.3.1",
             "source": {
@@ -135,7 +129,6 @@
             "time": "2021-04-09T23:57:26+00:00"
         },
         {
->>>>>>> add_passport
             "name": "dflydev/dot-access-data",
             "version": "v3.0.2",
             "source": {
@@ -551,8 +544,6 @@
             "time": "2023-01-02T17:26:14+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "firebase/php-jwt",
             "version": "v6.3.2",
             "source": {
@@ -615,7 +606,6 @@
             "time": "2022-12-19T17:10:46+00:00"
         },
         {
->>>>>>> add_passport
             "name": "fruitcake/php-cors",
             "version": "v1.2.0",
             "source": {
@@ -1267,8 +1257,6 @@
             "time": "2023-01-10T16:10:09+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "laravel/passport",
             "version": "v11.5.0",
             "source": {
@@ -1346,7 +1334,6 @@
             "time": "2023-01-09T16:46:42+00:00"
         },
         {
->>>>>>> add_passport
             "name": "laravel/sanctum",
             "version": "v3.2.0",
             "source": {
@@ -1540,8 +1527,6 @@
             "time": "2023-01-10T18:03:30+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "lcobucci/clock",
             "version": "3.0.0",
             "source": {
@@ -1680,7 +1665,6 @@
             "time": "2023-01-02T13:28:00+00:00"
         },
         {
->>>>>>> add_passport
             "name": "league/commonmark",
             "version": "2.3.8",
             "source": {
@@ -1869,8 +1853,6 @@
             "time": "2022-12-11T20:36:23+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "league/event",
             "version": "2.2.0",
             "source": {
@@ -1925,7 +1907,6 @@
             "time": "2018-11-26T11:52:41+00:00"
         },
         {
->>>>>>> add_passport
             "name": "league/flysystem",
             "version": "3.12.1",
             "source": {
@@ -2073,31 +2054,6 @@
             "time": "2022-04-17T13:12:02+00:00"
         },
         {
-<<<<<<< HEAD
-            "name": "monolog/monolog",
-            "version": "2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/720488632c590286b88b80e62aa3d3d551ad4a50",
-                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
-            },
-            "provide": {
-                "psr/log-implementation": "1.0.0 || 2.0.0 || 3.0.0"
-            },
-            "require-dev": {
-                "aws/aws-sdk-php": "^2.4.9 || ^3.0",
-                "doctrine/couchdb": "~1.0@dev",
-=======
             "name": "league/oauth2-server",
             "version": "8.3.6",
             "source": {
@@ -2380,7 +2336,6 @@
             "require-dev": {
                 "aws/aws-sdk-php": "^2.4.9 || ^3.0",
                 "doctrine/couchdb": "~1.0@dev",
->>>>>>> add_passport
                 "elasticsearch/elasticsearch": "^7 || ^8",
                 "ext-json": "*",
                 "graylog2/gelf-php": "^1.4.2",
@@ -2706,111 +2661,6 @@
                 "issues": "https://github.com/nette/utils/issues",
                 "source": "https://github.com/nette/utils/tree/v3.2.8"
             },
-<<<<<<< HEAD
-            "time": "2022-09-12T23:36:20+00:00"
-        },
-        {
-            "name": "nikic/php-parser",
-            "version": "v4.15.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc",
-                "reference": "f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-tokenizer": "*",
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "ircmaxell/php-yacc": "^0.0.7",
-                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
-            },
-            "bin": [
-                "bin/php-parse"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.9-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PhpParser\\": "lib/PhpParser"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Nikita Popov"
-                }
-            ],
-            "description": "A PHP parser written in PHP",
-            "keywords": [
-                "parser",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.2"
-            },
-            "time": "2022-11-12T15:38:23+00:00"
-        },
-        {
-            "name": "nunomaduro/termwind",
-            "version": "v1.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "594ab862396c16ead000de0c3c38f4a5cbe1938d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/594ab862396c16ead000de0c3c38f4a5cbe1938d",
-                "reference": "594ab862396c16ead000de0c3c38f4a5cbe1938d",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": "^8.0",
-                "symfony/console": "^5.3.0|^6.0.0"
-            },
-            "require-dev": {
-                "ergebnis/phpstan-rules": "^1.0.",
-                "illuminate/console": "^8.0|^9.0",
-                "illuminate/support": "^8.0|^9.0",
-                "laravel/pint": "^1.0.0",
-                "pestphp/pest": "^1.21.0",
-                "pestphp/pest-plugin-mock": "^1.0",
-                "phpstan/phpstan": "^1.4.6",
-                "phpstan/phpstan-strict-rules": "^1.1.0",
-                "symfony/var-dumper": "^5.2.7|^6.0.0",
-                "thecodingmachine/phpstan-strict-rules": "^1.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Termwind\\Laravel\\TermwindServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/Functions.php"
-                ],
-                "psr-4": {
-                    "Termwind\\": "src/"
-=======
             "time": "2022-09-12T23:36:20+00:00"
         },
         {
@@ -3176,7 +3026,6 @@
             "autoload": {
                 "psr-4": {
                     "Http\\Message\\": "src/"
->>>>>>> add_passport
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3185,40 +3034,6 @@
             ],
             "authors": [
                 {
-<<<<<<< HEAD
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "Its like Tailwind CSS, but for the console.",
-            "keywords": [
-                "cli",
-                "console",
-                "css",
-                "package",
-                "php",
-                "style"
-            ],
-            "support": {
-                "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v1.15.0"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/paypalme/enunomaduro",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/xiCO2k",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-12-20T19:00:15+00:00"
-=======
                     "name": "Márk Sági-Kazár",
                     "email": "mark.sagikazar@gmail.com"
                 }
@@ -3237,7 +3052,6 @@
                 "source": "https://github.com/php-http/message-factory/tree/master"
             },
             "time": "2015-12-19T14:08:53+00:00"
->>>>>>> add_passport
         },
         {
             "name": "phpoption/phpoption",
@@ -3315,8 +3129,6 @@
             "time": "2022-07-30T15:51:26+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "phpseclib/phpseclib",
             "version": "3.0.18",
             "source": {
@@ -3475,7 +3287,6 @@
             "time": "2022-11-25T14:36:26+00:00"
         },
         {
->>>>>>> add_passport
             "name": "psr/container",
             "version": "2.0.2",
             "source": {
@@ -5645,8 +5456,6 @@
             "time": "2022-11-02T09:08:04+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "symfony/psr-http-message-bridge",
             "version": "v2.1.4",
             "source": {
@@ -5735,7 +5544,6 @@
             "time": "2022-11-28T22:46:34+00:00"
         },
         {
->>>>>>> add_passport
             "name": "symfony/routing",
             "version": "v6.2.3",
             "source": {
