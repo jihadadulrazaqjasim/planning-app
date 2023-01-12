@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class BoardSeeder extends Seeder
+class TaskSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class BoardSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Board::factory(10)->create();
-    }   
+        \App\Models\Task::factory(10)->create();
+    }
 }

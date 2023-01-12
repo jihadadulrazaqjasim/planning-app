@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'type',
         'email',
         'password',
     ];
@@ -43,18 +44,30 @@ class User extends Authenticatable
     ];
 
     
-    public function owner()
+    // public function owner()
+    // {
+    //     return $this->hasOne(Owner::class);
+    // }
+
+    // public function developer()
+    // {
+    //     return $this->hasOne(Developer::class);
+    // }
+
+    // public function tester()
+    // {
+    //     return $this->hasOne(Tester::class);
+    // }
+
+    
+    public function task()
     {
-        return $this->hasOne(Owner::class);
+        return $this->hasMany(Task::class);
     }
 
-    public function developer()
+    
+    public function board()
     {
-        return $this->hasOne(Developer::class);
-    }
-
-    public function tester()
-    {
-        return $this->hasOne(Tester::class);
+        return $this->hasMany(Board::class);
     }
 }
