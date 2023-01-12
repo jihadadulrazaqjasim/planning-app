@@ -9,10 +9,10 @@ class Owner extends Model
 {
     use HasFactory;
     
-    public function board()
-    {
-        return $this->hasMany(Board::class);
-    }
+    // public function board()
+    // {
+    //     return $this->hasMany(Board::class);
+    // }
 
     
     public function user()
