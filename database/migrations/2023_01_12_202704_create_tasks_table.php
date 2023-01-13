@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('current_status')->default('to-do');
             // $table->foreignId('developer_id');
             // $table->foreignId('tester_id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->nullable();
             $table->foreignId('board_id');
             $table->timestamps();
 

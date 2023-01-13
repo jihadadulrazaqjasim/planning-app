@@ -40,7 +40,7 @@ class TaskController extends BaseController
             $this->sendError('Validate error', $validator->errors());
         }
 
-        if ($input['image'] != null) {
+        if ($request->image != null) {
             $photo = $request->image;
             $newPhoto = Str::random() . time() . $photo->getClientOriginalExtension();
             $photo->move('task/image',$newPhoto);

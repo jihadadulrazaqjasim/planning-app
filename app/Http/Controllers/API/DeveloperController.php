@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Resources\TaskResource;
 use App\Models\Developer;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class DeveloperController extends Controller
+class DeveloperController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    
+    public function showAllTask()
     {
-        //
+        $task = Task::where('user_id',Auth::id())->get();
+        return $this->sendResponse(TaskResource::collection($task), 'Task retrieved successfully for the developer!');
     }
 
     /**

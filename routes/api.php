@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BoardController;
 use App\Http\Controllers\API\TaskController;
+use App\Http\Controllers\API\OwnerController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,5 +46,10 @@ Route::middleware(['auth:api', 'owner'])->group(function () {
         Route::put('/tasks/{task}', 'update');
 
     });
+
+    Route::controller(OwnerController::class)->group(function () {
+        Route::get('/owners', 'showAllTask');
+        Route::post('/assign/{task}', 'assignTask');
+    }); 
 });
 
