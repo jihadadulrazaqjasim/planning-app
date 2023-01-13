@@ -23,7 +23,7 @@ class TaskFactory extends Factory
             
             'current_status'=> fake()->name(),
             'user_id' => User::factory(),
-            'user_id' => Board::factory(),
+            'board_id' => Board::factory(),
         ];
     }
 }

@@ -21,7 +21,7 @@ class BoardFactory extends Factory
         return [
           'title' => fake()->title(),
           'description' => fake()->paragraph(),
-          'owner_id' => User::factory(),
+          'user_id' => User::factory(),
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Task;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lable>
  */
@@ -18,6 +18,7 @@ class LableFactory extends Factory
     {
         return [
             'title' => fake()->title(),
+            'task_id' => Task::factory(),
         ];
     }
 }
