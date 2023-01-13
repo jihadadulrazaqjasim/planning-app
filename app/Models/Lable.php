@@ -9,7 +9,7 @@ class Lable extends Model
 {
     use HasFactory;
     protected $fillabel = [
-        'title',
+        'title','task_id',
      ];
 
      

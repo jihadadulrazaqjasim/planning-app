@@ -9,7 +9,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillabel =[
+    protected $fillable =[
         'title',
         'description',
         'image',

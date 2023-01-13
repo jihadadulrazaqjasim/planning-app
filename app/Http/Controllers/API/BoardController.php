@@ -6,6 +6,8 @@ use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\BoardResource as BoardResource;
+use App\Http\Resources\TaskResource as TaskdResource;
+use App\Http\Resources\LableResource as LabledResource;
 use Auth;
 use Validator;
 
@@ -42,15 +44,15 @@ class BoardController extends BaseController
     }
 
    
-    public function show($id)
+    public function show(Board $board)
     {
-        $board = Board::where('id',$id)->first();
+        // $board = Board::where('id',$board->id)->first();
         
         $errorMessage = [];
         
-        if ($board === null) {
-            $this->sendError('The board not found', $errorMessage);
-        }
+        // if ($board === null) {
+        //     $this->sendError('The board not found', $errorMessage);
+        // }
 
         $task = $board->task();
         $lable = $board->task()->lable();
