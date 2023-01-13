@@ -9,8 +9,8 @@ class Board extends Model
 {
     use HasFactory;
 
-    protected $fillabel = [
-        'title','description',
+    protected $fillable = [
+        'title','description','user_id'
     ];
 
     

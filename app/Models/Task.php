@@ -15,6 +15,8 @@ class Task extends Model
         'image',
         'due_date',
         'current_status',
+        'user_id',
+        'board_id',
     ];
 
     
