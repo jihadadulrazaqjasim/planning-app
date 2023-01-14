@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Support\Facades\Auth;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class IsOwner
+class IsDeveloper
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class IsOwner
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && (Auth::user()->type == 'owner')) {
+        if (Auth::check() && (Auth::user()->type == 'developer')) {
             return $next($request);            
         }else {
             return response('Unauthorized.', 401);

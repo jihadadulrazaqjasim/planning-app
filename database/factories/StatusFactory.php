@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 // use App\Models\User;
 use App\Models\Board;
+use App\Models\Task;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Status>
@@ -21,7 +22,7 @@ class StatusFactory extends Factory
         return [
             'user_name' => fake()->name(),
             'detail' => fake()->paragraph(),
-            'board_id' => Board::factory(), 
+            'task_id' => Task::factory(), 
         ];
     }
 }

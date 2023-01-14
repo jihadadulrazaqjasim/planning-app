@@ -37,4 +37,8 @@ class Task extends Model
         return $this->hasMany(Lable::class);
     }
 
+    public function status()
+    {
+        return $this->hasMany(Status::class);
+    }
 }

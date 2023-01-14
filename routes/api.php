@@ -4,9 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BoardController;
+use App\Http\Controllers\API\DeveloperController;
 use App\Http\Controllers\API\TaskController;
 use App\Http\Controllers\API\OwnerController;
-
+use App\Http\Controllers\API\TesterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +49,30 @@ Route::middleware(['auth:api', 'owner'])->group(function () {
     });
 
     Route::controller(OwnerController::class)->group(function () {
-        Route::get('/owners', 'showAllTask');
+        Route::get('/owner/task', 'showAllTask');
         Route::post('/assign/{task}', 'assignTask');
+        Route::patch('/owner/change-status/{task}', 'changeTaskStatus');
+        Route::get('/owner/task-logs', 'showAllTaskLogs');
+        Route::get('/owner/task-logs/{task}', 'ShowTaskLogs');
+
+
     }); 
 });
 
+Route::middleware(['auth:api', 'developer'])->group(function () {
+   
+    Route::controller(DeveloperController::class)->group(function () {
+        Route::get('/developer/task', 'showAllTask');
+        Route::patch('/developer/change-status/{task}', 'changeTaskStatus');
+
+    });
+});
+
+Route::middleware(['auth:api', 'tester'])->group(function () {
+
+    Route::controller(TesterController::class)->group(function () {
+        Route::get('/tester/task', 'showAllTask');
+        Route::patch('/tester/change-status/{task}', 'changeTaskStatus');
+
+    });
+});

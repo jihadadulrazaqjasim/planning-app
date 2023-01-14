@@ -9,16 +9,22 @@ class Status extends Model
 {
     use HasFactory;
 
-    protected $fillabel = [
+    protected $fillable = [
         'user_name',
         'action',
         'detail',
+        'task_id',
     ];
 
     
-    public function board()
+    // public function board()
+    // {
+    //     return $this->belongsTo(Board::class);
+    // }
+    
+    public function task()
     {
-        return $this->belongsTo(Board::class);
+        return $this->belongsTo(Task::class);
     }
     
 }

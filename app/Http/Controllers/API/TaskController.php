@@ -7,18 +7,17 @@ use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\TaskResource as TaskResource;
-use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Validator;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends BaseController
 {
     public function index()
     {
         $task = Task::where('user_id',Auth::user()->id)->get();
-        // if (count($task) == 0) {
-        //    return $this->sendError('Task not found');
-        // }
+        
         return $this->sendResponse(TaskResource::collection($task), 'Board has been retrieved successfully!');
     }
 
@@ -26,7 +25,6 @@ class TaskController extends BaseController
     public function store(Request $request, Board $board)
     {
         $input = $request->all();
-        // return response()->json($request->image, 200);
         
         $validator = Validator::make($input,[
             'title' => 'required|max:255',
@@ -48,7 +46,6 @@ class TaskController extends BaseController
             $input['image']='task/image/'.$newPhoto;
         }
 
-        $input['user_id'] = Auth::user()->id;
         $input['board_id'] = $board->id;
         $task = Task::create($input);
 
@@ -56,17 +53,37 @@ class TaskController extends BaseController
     }
 
    
-    public function show(Board $board)
+    public function show(Request $request,Board $board)
     {
+        $sort_search =null;
+        $sort_title = null;
+        $sort_created = null;
         $errorMessage = [];
-
-        if ( Auth::user()->board->find($task->board_id) == null) {
-            return $this->sendError('unauthorized to make this process', $errorMessage);
-        }
         
-        return $this->sendResponse(['board' => new BoardResource($board),
-            'task' => TaskResource::collection($task),
-            'task' => TaskResource::collection($task)], 'The board has been retrieved successfully!');
+        if (Auth::id() != $board->user_id) {
+            return $this->sendError('unauthorized to make this operation' ,$errorMessage);
+        }
+
+        $task = $board->task;
+
+        if ($request->has('sort_title')) {
+            $sort_title = $request->sort_title;
+            $task->orderBy('title','$sort_title');
+        }
+
+        if ($request->has('sort_created')) {
+            $sort_created = $request->sort_created;
+            $task->orderBy('created_at',$sort_created);
+        }
+
+        if ($request->has('search')){
+            $sort_search = $request->search;
+            $task = $task->where('title', 'like', '%'.$sort_search.'%');
+        }
+
+        $task = $task->get();
+
+        return $this->sendResponse(TaskResource::collection($task),'The Task of the owner has been retrieved successfully!');
     }
 
    
@@ -122,8 +139,6 @@ class TaskController extends BaseController
     public function destroy(Task $task)
     {
         $errorMessage = [];
-        // return response()->json($board, 200);
-        // return response()->json(Auth::user()->board->find($task->board_id), 200);
 
         if (Auth::user()->board->find($task->board_id) == null) {
             return $this->sendError('unauthorized to make this process', $errorMessage);
