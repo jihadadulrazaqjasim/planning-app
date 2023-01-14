@@ -7,6 +7,7 @@ use App\Http\Resources\StatusResource;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
 use App\Models\Board;
+use App\Models\Label;
 use App\Models\Owner;
 use App\Models\Status;
 use App\Models\Task;
@@ -56,6 +57,7 @@ class OwnerController extends BaseController
     public function showAllTask(Request $request)
     {
         $sort_created =null;
+        $filter_label = null;
         $sort_title =null;
         $sort_search =null;
         // $brands = Brand::orderBy('name', 'asc');
@@ -76,6 +78,12 @@ class OwnerController extends BaseController
         if ($request->has('search')){
             $sort_search = $request->search;
             $task = $task->where('title', 'like', '%'.$sort_search.'%');
+        }
+
+        if ($request->has('filter_label')){
+            $filter_label = $request->filter_label;
+            $label_id = Label::where('title', 'like', '%'.$filter_label.'%')->get('task_id');
+            $task = $task->whereIn('id',$label_id);
         }
 
         $task = $task->get(); 

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BoardController;
 use App\Http\Controllers\API\DeveloperController;
+use App\Http\Controllers\API\LabelController;
 use App\Http\Controllers\API\TaskController;
 use App\Http\Controllers\API\OwnerController;
 use App\Http\Controllers\API\TesterController;
@@ -41,7 +42,7 @@ Route::middleware(['auth:api', 'owner'])->group(function () {
     });
 
     Route::controller(TaskController::class)->group(function () {
-        Route::get('/tasks/{id}', 'show');
+        Route::get('/tasks/{board}', 'show');
         Route::post('/tasks/{board}', 'store');
         Route::delete('/tasks/{task}', 'destroy');
         Route::put('/tasks/{task}', 'update');
@@ -57,6 +58,13 @@ Route::middleware(['auth:api', 'owner'])->group(function () {
 
 
     }); 
+
+    Route::controller(LabelController::class)->group(function () {
+        Route::get('/label/{task}', 'show');
+        Route::post('/label/{task}', 'store');
+        Route::patch('/label/{label}', 'update');
+        Route::delete('/label/{label}', 'destroy');
+    });
 });
 
 Route::middleware(['auth:api', 'developer'])->group(function () {

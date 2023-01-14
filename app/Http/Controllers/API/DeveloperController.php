@@ -6,6 +6,7 @@ use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\StatusResource;
 use App\Http\Resources\TaskResource;
 use App\Models\Developer;
+use App\Models\Label;
 use App\Models\Status;
 use App\Models\Task;
 use Validator;
@@ -21,6 +22,7 @@ class DeveloperController extends BaseController
         $sort_title = null;
         $sort_created = null;
         $sort_search = null;
+        $filter_label = null;
         $task = Task::where('user_id',Auth::id());
         
         if ($request->has('sort_title')) {
@@ -36,6 +38,12 @@ class DeveloperController extends BaseController
         if ($request->has('search')){
             $sort_search = $request->search;
             $task = $task->where('title', 'like', '%'.$sort_search.'%');
+        }
+
+        if ($request->has('filter_label')){
+            $filter_label = $request->filter_label;
+            $label_id = Label::where('title', 'like', '%'.$filter_label.'%')->get('task_id');
+            $task = $task->whereIn('id',$label_id);
         }
 
         $task = $task->get();

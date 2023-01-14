@@ -32,9 +32,9 @@ class Task extends Model
     }
 
     
-    public function lable()
+    public function label()
     {
-        return $this->hasMany(Lable::class);
+        return $this->hasMany(Label::class);
     }
 
     public function status()

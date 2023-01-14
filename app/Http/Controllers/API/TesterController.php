@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\StatusResource;
 use App\Http\Resources\TaskResource;
+use App\Models\Label;
 use App\Models\Status;
 use App\Models\Task;
 use App\Models\Tester;
@@ -36,11 +37,14 @@ class TesterController extends BaseController
             $sort_search = $request->search;
             $task = $task->where('title', 'like', '%'.$sort_search.'%');
         }
-        $task = $task->get();
-        // else{
-        //     $task->get();
-        // }
+        
+        if ($request->has('filter_label')){
+            $label_id = Label::where('title', 'like', '%'.$request->filter_label.'%')->get('task_id');
+            $task = $task->whereIn('id',$label_id);
+        }
 
+        $task = $task->get();
+        
         return $this->sendResponse(TaskResource::collection($task), 'Task retrieved successfully for the Tester!');
     }
 

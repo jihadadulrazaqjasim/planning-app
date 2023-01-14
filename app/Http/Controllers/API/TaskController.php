@@ -7,6 +7,7 @@ use App\Models\Board;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Http\Resources\TaskResource as TaskResource;
+use App\Models\Label;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Validator;
 use Illuminate\Support\Str;
@@ -64,11 +65,11 @@ class TaskController extends BaseController
             return $this->sendError('unauthorized to make this operation' ,$errorMessage);
         }
 
-        $task = $board->task;
-
+        $task = $board->task();
+// return response()->json($task, 200);
         if ($request->has('sort_title')) {
             $sort_title = $request->sort_title;
-            $task->orderBy('title','$sort_title');
+            $task->orderBy('title',$sort_title);
         }
 
         if ($request->has('sort_created')) {
@@ -80,6 +81,13 @@ class TaskController extends BaseController
             $sort_search = $request->search;
             $task = $task->where('title', 'like', '%'.$sort_search.'%');
         }
+
+                
+        if ($request->has('filter_label')){
+            $label_id = Label::where('title', 'like', '%'.$request->filter_label.'%')->get('task_id');
+            $task = $task->whereIn('id',$label_id);
+        }
+
 
         $task = $task->get();
 
