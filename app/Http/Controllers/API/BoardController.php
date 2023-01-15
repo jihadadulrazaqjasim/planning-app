@@ -17,9 +17,7 @@ class BoardController extends BaseController
     public function index()
     {
         $board = Board::where('user_id',Auth::user()->id)->get();
-        // if (count($board) == 0) {
-        //    return $this->sendError('Board not found');
-        // }
+
         return $this->sendResponse(BoardResource::collection($board), 'Board has been retrieved successfully!');
     }
 
@@ -27,16 +25,12 @@ class BoardController extends BaseController
     public function store(Request $request)
     {
         $input = $request->all();
-        
-        $validator = Validator::make($input,[
+         
+        $request->validate([
             'title' => 'required|max:255',
             'description' => 'nullable',
         ]);
-
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
-        }
-
+        
         $input['user_id'] = Auth::user()->id;
         $board = Board::create($input);
 
