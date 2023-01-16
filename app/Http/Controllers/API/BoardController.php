@@ -62,20 +62,25 @@ class BoardController extends BaseController
     {
         $errorMessage = [];
 
-        if ($board->id != Auth::user()->id) {
-            return $this->sendError('unauthorized to make this process', $errorMessage);
+        if ($board->user_id != Auth::user()->id) {
+            return $this->sendError('unauthorized to make this process', $errorMessage, 403);
         }
 
         $input = $request->all();
         
-        $validator = Validator::make($input,[
-            'title' => 'required|max:255',
-             'description' => 'nullable',
-        ]);
+        // $validator = Validator::make($input,[
+        //     'title' => 'required|max:255',
+        //      'description' => 'nullable',
+        // ]);
 
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
-        }
+        // if ($validator->fails()) {
+        //     $this->sendError('Validate error', $validator->errors());
+        // }
+
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'nullable',
+        ]);
 
         $board->title = $input['title'];
         $board->description = $input['description'];

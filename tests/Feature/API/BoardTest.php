@@ -46,8 +46,6 @@ class BoardTest extends TestCase
 
     public function test_diplay_all_owner_board_successful()
     {
-        // $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
-
         $response = $this->actingAs($this->owner)->getJson('/api/boards',$this->header($this->owner));
         
         $response->assertStatus(200);
@@ -74,8 +72,7 @@ class BoardTest extends TestCase
         ]);
         Board::factory(2)->create();
 
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
-        $response = $this->actingAs($this->owner)->getJson('/api/boards',$header);
+        $response = $this->actingAs($this->owner)->getJson('/api/boards',$this->header($this->owner));
 
         $response->assertStatus(200);
         $response->assertJsonCount(5,'data');
@@ -84,9 +81,7 @@ class BoardTest extends TestCase
     
     public function test_diplay_all_owner_board_unauthorized_as_owner_successful()
     {
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->developer)];
-
-        $response = $this->actingAs($this->owner)->getJson('/api/boards',$header);
+        $response = $this->actingAs($this->owner)->getJson('/api/boards',$this->header($this->developer));
 
         $response->assertStatus(401);
 
@@ -98,8 +93,7 @@ class BoardTest extends TestCase
             'title' => 'planning website v1'    
         ];
 
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
-        $response = $this->actingAs($this->owner)->postJson('/api/boards', $data, $header);
+        $response = $this->actingAs($this->owner)->postJson('/api/boards', $data, $this->header($this->owner));
 
         $response->assertStatus(200);
         $response->assertJsonCount(3);
@@ -120,8 +114,7 @@ class BoardTest extends TestCase
             'title' => 'planning website v1'    
         ];
 
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->tester)];
-        $response = $this->postJson('/api/boards', $data, $header);
+        $response = $this->postJson('/api/boards', $data, $this->header($this->tester));
 
         $response->assertStatus(401);
     }
@@ -132,8 +125,7 @@ class BoardTest extends TestCase
             'title' => ''    
         ];
 
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
-        $response = $this->actingAs($this->owner)->postJson('/api/boards', $data, $header);
+        $response = $this->actingAs($this->owner)->postJson('/api/boards', $data, $this->header($this->owner));
 
         $response->assertStatus(422);
         $response->assertJsonCount(2);
@@ -151,8 +143,7 @@ class BoardTest extends TestCase
             'user_id' => $this->owner->id,
         ]);
 
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
-        $response = $this->deleteJson('/api/boards/'.$board->id, [], $header);
+        $response = $this->deleteJson('/api/boards/'.$board->id, [], $this->header($this->owner));
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
@@ -165,8 +156,7 @@ class BoardTest extends TestCase
     {
         $board = Board::factory()->create();
 
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
-        $response = $this->actingAs($this->owner)->deleteJson('/api/boards/'.$board->id, [], $header);
+        $response = $this->actingAs($this->owner)->deleteJson('/api/boards/'.$board->id, [], $this->header($this->owner));
 
         $response->assertStatus(401);
         $response->assertJson([
@@ -176,7 +166,56 @@ class BoardTest extends TestCase
     }
 
     public function test_update_board_by_authorized_owner_successful()
-    {
-        
+    {        
+        $board = Board::factory()->create([
+            'user_id' => $this->owner->id,
+        ]);
+        $data = [
+            'title' => 'borad updated',
+            'description' => 'test update board by using feature testing',
+        ];
+
+        $response = $this->putJson('/api/boards/'.$board->id, $data, $this->header($this->owner));
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(3);
+    }
+
+    public function test_update_unauthorized_board_by_owner_successful()
+    {        
+        $board = Board::factory()->create();
+        $data = [
+            'title' => 'borad updated',
+            'description' => 'test update board by using feature testing',
+        ];
+
+        $response = $this->putJson('/api/boards/'.$board->id, $data, $this->header($this->owner));
+// dd($response->json());
+
+        $response->assertStatus(403);
+        $response->assertJsonCount(2);
+        $response->assertJson([
+            'success' => false,
+            'data' => 'unauthorized to make this process',
+        ]);
+    }
+
+    public function test_update_board_by_owner_validate_error_successful()
+    {        
+        $board = Board::factory()->create([
+            'user_id' => $this->owner->id,
+        ]);
+
+        $data = [
+            'title' => '',
+        ];
+
+        $response = $this->putJson('/api/boards/'.$board->id, $data, $this->header($this->owner));
+
+        $response->assertStatus(422);
+        $response->assertJsonCount(2);
+        $response->assertJsonFragment([
+            'message' => 'The title field is required.',
+        ]);
     }
 }
