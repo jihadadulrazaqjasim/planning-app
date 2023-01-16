@@ -26,6 +26,11 @@ class BoardTest extends TestCase
         $this->owner = $this->createUser(type: 'owner');
     }
 
+    private function header(User $user)
+    {
+        return ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $user)];    
+    }
+
     private function createUserToken(User $user)
     {
         return $user->createToken('PlanningWebsiteProject')->accessToken;
@@ -41,9 +46,9 @@ class BoardTest extends TestCase
 
     public function test_diplay_all_owner_board_successful()
     {
-        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
+        // $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
 
-        $response = $this->actingAs($this->owner)->getJson('/api/boards',$header);
+        $response = $this->actingAs($this->owner)->getJson('/api/boards',$this->header($this->owner));
         
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -138,5 +143,40 @@ class BoardTest extends TestCase
                 'title' => ['The title field is required.'],
             ],
         ]);
+    }
+
+    public function test_delete_board_successful()
+    {
+        $board = Board::factory()->create([
+            'user_id' => $this->owner->id,
+        ]);
+
+        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
+        $response = $this->deleteJson('/api/boards/'.$board->id, [], $header);
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment([
+            'success' => true,
+            'message' => 'The Board has been deleted successfully!'    
+        ]);
+    }
+
+    public function test_delete_board_by_unauthorized_user_successful()
+    {
+        $board = Board::factory()->create();
+
+        $header = ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$this->createUserToken(user: $this->owner)];
+        $response = $this->actingAs($this->owner)->deleteJson('/api/boards/'.$board->id, [], $header);
+
+        $response->assertStatus(401);
+        $response->assertJson([
+            'success' => false,
+            'data' => 'unauthorized to make this process',
+        ]);
+    }
+
+    public function test_update_board_by_authorized_owner_successful()
+    {
+        
     }
 }

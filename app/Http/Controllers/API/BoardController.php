@@ -93,7 +93,7 @@ class BoardController extends BaseController
         // return response()->json($board, 200);
 
         if (Auth::user()->id != $board->user_id) {
-            return $this->sendError('unauthorized to make this process', $errorMessage);
+            return $this->sendError('unauthorized to make this process', $errorMessage,401);
         }
 
         $board->delete();
