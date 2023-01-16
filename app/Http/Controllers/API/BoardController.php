@@ -68,15 +68,6 @@ class BoardController extends BaseController
 
         $input = $request->all();
         
-        // $validator = Validator::make($input,[
-        //     'title' => 'required|max:255',
-        //      'description' => 'nullable',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     $this->sendError('Validate error', $validator->errors());
-        // }
-
         $request->validate([
             'title' => 'required|max:255',
             'description' => 'nullable',
@@ -95,10 +86,9 @@ class BoardController extends BaseController
     public function destroy(Board $board)
     {
         $errorMessage = [];
-        // return response()->json($board, 200);
 
         if (Auth::user()->id != $board->user_id) {
-            return $this->sendError('unauthorized to make this process', $errorMessage,401);
+            return $this->sendError('unauthorized to make this process', $errorMessage,403);
         }
 
         $board->delete();

@@ -29,10 +29,10 @@ class DeveloperController extends BaseController
             $sort_title = $request->sort_title;
             $task->orderBy('title',$sort_title);
         }
-
         if ($request->has('sort_created')) {
             $sort_created = $request->sort_created;
-            $task->orderBy('created_at',$sort_created);
+            $task->orderBy('created_at', $sort_created);
+            dd($task->get());
         }
 
         if ($request->has('search')){
@@ -42,8 +42,8 @@ class DeveloperController extends BaseController
 
         if ($request->has('filter_label')){
             $filter_label = $request->filter_label;
-            $label_id = Label::where('title', 'like', '%'.$filter_label.'%')->get('task_id');
-            $task = $task->whereIn('id',$label_id);
+            $task_id = Label::where('title', 'like', '%'.$filter_label.'%')->get('task_id');
+            $task = $task->whereIn('id',$task_id);
         }
 
         $task = $task->get();

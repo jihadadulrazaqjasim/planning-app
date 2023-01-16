@@ -101,13 +101,10 @@ class OwnerController extends BaseController
         }
 
         $input = $request->all();
-        $validator = Validator::make($request->all(),[
+
+        $request->validate([
             'change_status'=> 'required'
         ]);
-
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
-        }
 
         // if the change status is same the current status
         if ($task->current_status == $request->change_status) {
@@ -149,7 +146,7 @@ class OwnerController extends BaseController
         $errorMessage = [];
 
         if (Auth::id() != $task->board->user_id) {
-            return $this->sendError('unauthorized to make this operation' ,$errorMessage);
+            return $this->sendError('unauthorized to make this operation' ,$errorMessage, 403);
         }
         $logs = $task->status;
 

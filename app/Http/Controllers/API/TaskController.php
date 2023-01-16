@@ -26,22 +26,23 @@ class TaskController extends BaseController
     public function store(Request $request, Board $board)
     {
         $input = $request->all();
-        
-        $validator = Validator::make($input,[
-            'title' => 'required|max:255',
-            'description' => 'required',
-            'image' => 'nullable|mimes:jpeg,jpg,png,gif',
-            'due_date' => 'nullable',
-            'current_status' => 'nullable',
-        ]);
+        $errorMessage = [];
 
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
+        if (Auth::id() != $board->user_id) {
+            return $this->sendError('unauthorized to make this operation' ,$errorMessage, 403);
         }
+
+        $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'image' => 'nullable|mimes:jpeg,jpg,png,gif',
+        'due_date' => 'nullable',
+        'current_status' => 'nullable',
+        ]);
 
         if ($request->image != null) {
             $photo = $request->image;
-            $newPhoto = Str::random() . time() . $photo->getClientOriginalExtension();
+            $newPhoto = Str::random() . time() .'.'. $photo->getClientOriginalExtension();
             $photo->move('task/image',$newPhoto);
 
             $input['image']='task/image/'.$newPhoto;
@@ -62,11 +63,11 @@ class TaskController extends BaseController
         $errorMessage = [];
         
         if (Auth::id() != $board->user_id) {
-            return $this->sendError('unauthorized to make this operation' ,$errorMessage);
+            return $this->sendError('unauthorized to make this operation' ,$errorMessage, 403);
         }
 
         $task = $board->task();
-// return response()->json($task, 200);
+
         if ($request->has('sort_title')) {
             $sort_title = $request->sort_title;
             $task->orderBy('title',$sort_title);
@@ -100,12 +101,12 @@ class TaskController extends BaseController
         $errorMessage = [];
 
         if ( Auth::user()->board->find($task->board_id) == null) {
-            return $this->sendError('unauthorized to make this process', $errorMessage);
+            return $this->sendError('unauthorized to make this process', $errorMessage,403);
         }
 
         $input = $request->all();
         
-        $validator = Validator::make($input,[
+        $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'image' => 'nullable|mimes:jpeg,jpg,png,gif',
@@ -113,13 +114,9 @@ class TaskController extends BaseController
             'current_status' => 'nullable',
         ]);
 
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
-        }
-
         if ($request->image != null) {
             $photo = $request->image;
-            $newPhoto = Str::random() . time() . $photo->getClientOriginalExtension();
+            $newPhoto = Str::random() . time() .'.'. $photo->getClientOriginalExtension();
             $photo->move('task/image',$newPhoto);
 
             $input['image']='task/image/'.$newPhoto;
@@ -149,7 +146,7 @@ class TaskController extends BaseController
         $errorMessage = [];
 
         if (Auth::user()->board->find($task->board_id) == null) {
-            return $this->sendError('unauthorized to make this process', $errorMessage);
+            return $this->sendError('unauthorized to make this process', $errorMessage, 403);
         }
 
         $task->delete();

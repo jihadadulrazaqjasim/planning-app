@@ -19,17 +19,11 @@ return new class extends Migration
             $table->longText('description');
             $table->string('image')->nullable();
             $table->date('due_date')->nullable();
-            $table->string('current_status')->default('to-do');
-            // $table->foreignId('developer_id');
-            // $table->foreignId('tester_id');
+            $table->string('current_status')->nullable();
             $table->foreignId('user_id')->nullable();
             $table->foreignId('board_id');
             $table->timestamps();
 
-            // $table->foreign('developer_id')->references('id')->on('boards')
-            // ->onDelete('cascade');
-            // $table->foreign('tester_id')->references('id')->on('boards')
-            // ->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')
             ->onDelete('cascade');
             $table->foreign('board_id')->references('id')->on('boards')

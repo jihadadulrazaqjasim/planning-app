@@ -152,17 +152,27 @@ class BoardTest extends TestCase
         ]);
     }
 
-    public function test_delete_board_by_unauthorized_user_successful()
+    public function test_delete_board_by_unauthorized_owner_successful()
     {
         $board = Board::factory()->create();
 
         $response = $this->actingAs($this->owner)->deleteJson('/api/boards/'.$board->id, [], $this->header($this->owner));
 
-        $response->assertStatus(401);
+        $response->assertStatus(403);
         $response->assertJson([
             'success' => false,
             'data' => 'unauthorized to make this process',
         ]);
+    }
+
+    public function test_delete_board_by_unauthorized_user_successful()
+    {
+        $board = Board::factory()->create();
+
+        $response = $this->actingAs($this->owner)->deleteJson('/api/boards/'.$board->id, [], $this->header($this->developer));
+
+        $response->assertStatus(401);
+        
     }
 
     public function test_update_board_by_authorized_owner_successful()
@@ -190,7 +200,6 @@ class BoardTest extends TestCase
         ];
 
         $response = $this->putJson('/api/boards/'.$board->id, $data, $this->header($this->owner));
-// dd($response->json());
 
         $response->assertStatus(403);
         $response->assertJsonCount(2);
