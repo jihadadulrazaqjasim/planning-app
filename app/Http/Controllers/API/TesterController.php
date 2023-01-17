@@ -55,27 +55,23 @@ class TesterController extends BaseController
 
         // first checke if the task is assigned to this user
         if ($task->user_id != Auth::id()) {
-            return $this->sendError('unauthorized to do this operatoin', $errorMessage);
+            return $this->sendError('unauthorized to do this operatoin', $errorMessage,403);
         }
 
         $input = $request->all();
-        $validator = Validator::make($request->all(),[
+
+        $request->validate([
             'change_status'=> 'required'
         ]);
 
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
-        }
-
         if ($task->current_status == 'testing' && $request->change_status == 'dev-review') {
         
-            
             //add the record to the change status tables
             $input['user_name'] = Auth::user()->name;
             $input['detail'] = 'Change status from '. $task->current_status . ' to ' . $input['change_status'] . '.';  
             $input['task_id'] = $task->id;
             $status = Status::create($input);
-            
+
             $task->current_status = $request->change_status;
             $task->save();
 

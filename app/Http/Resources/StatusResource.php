@@ -17,6 +17,7 @@ class StatusResource extends JsonResource
         return [
             'id' => $this->id,
             'user_name' => $this->user_name,
+            'action' => $this->action,
             'detail' => $this->detail,
             'task_id' => $this->task_id,
             'created_at' => $this->created_at->format('d/m/y h:m:s'),

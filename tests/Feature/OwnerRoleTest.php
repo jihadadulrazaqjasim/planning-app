@@ -57,10 +57,6 @@ class OwnerRoleTest extends TestCase
         $task =Task::factory()->create([
             'board_id' => $board->id,
             'current_status' => 'to-do' 
-            // function () {
-            //    $array = [null,'to-do'];
-            //     return $array[array_rand($array)];
-            // },
         ]);
 
         $data = [
@@ -234,6 +230,30 @@ class OwnerRoleTest extends TestCase
         
         $response->assertJsonFragment([
             'message' => 'The assign id field is required.',
+        ]);
+    }
+
+    public function test_assign_task_to_owner_return_error()
+    {
+        $board = Board::factory()->create([
+            'user_id' => $this->owner->id,
+        ]);
+
+        $task =Task::factory()->create([
+            'board_id' => $board->id,
+            'current_status' => 'to-do' 
+        ]);
+
+        $data = [
+            'assign_id' => $this->owner->id,
+        ];
+
+        $response = $this->postJson('/api/assign/'.$task->id, $data, $this->header(user: $this->owner));
+
+        $response->assertStatus(404);
+        $response->assertJsonFragment([
+            'success' => false,
+            'data' => 'It cannot be assigned to this user because he is owner '
         ]);
     }
 
@@ -705,4 +725,5 @@ class OwnerRoleTest extends TestCase
             'data' => 'unauthorized to make this operation'
         ]);
     }
+
 }

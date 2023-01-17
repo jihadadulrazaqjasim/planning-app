@@ -22,6 +22,7 @@ class StatusFactory extends Factory
         return [
             'user_name' => fake()->name(),
             'detail' => fake()->paragraph(),
+            // 'action' => 'Status Change.',
             'task_id' => Task::factory(), 
         ];
     }

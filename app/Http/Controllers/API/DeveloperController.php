@@ -58,17 +58,14 @@ class DeveloperController extends BaseController
 
         // first checke if the task is assigned to this user
         if ($task->user_id != Auth::id()) {
-            return $this->sendError('unauthorized to do this opratoin', $errorMessage);
+            return $this->sendError('unauthorized to do this opratoin', $errorMessage, 403);
         }
 
         $input = $request->all();
-        $validator = Validator::make($request->all(),[
+
+        $request->validate([
             'change_status'=> 'required'
         ]);
-
-        if ($validator->fails()) {
-            $this->sendError('Validate error', $validator->errors());
-        }
 
         if (($task->current_status == 'to-do' && $request->change_status == 'in-progress') 
             || ($task->current_status == 'in-progress' && $request->change_status == 'testing')) {

@@ -12,36 +12,24 @@ use Validator;
 
 class LabelController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-   
     public function store(Request $request, Task $task)
     {
         $errorMessage = [];
         if ($task->board->user_id !== Auth::user()->id) {
-            return $this->sendError('unauthorized ', $errorMessage);
+            return $this->sendError('unauthorized ', $errorMessage, 403);
         }
 
         $input = $request->all();
-        $validator = Validator::make($input,[
+
+        $request->validate([
             'title' => 'required|max:255',
         ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('validate error', $validator->errors());
-        }
-        
         if (Label::where('task_id',$task->id)->where('title','like',$request->title)->exists()) {
             return $this->sendError('the label Already selected');
         }
+
         $input['task_id'] = $task->id;
         $label = Label::create($input);
 
@@ -52,7 +40,7 @@ class LabelController extends BaseController
     {
         $errorMessage = [];
         if ($task->board->user_id !== Auth::user()->id) {
-            return $this->sendError('unauthorized ', $errorMessage);
+            return $this->sendError('unauthorized ', $errorMessage, 403);
         }
         $label = $task->label;
         return $this->sendResponse(LabelResource::collection($label), 'Labels of the specific task has been retrieved successfully!');
@@ -62,18 +50,15 @@ class LabelController extends BaseController
     {
         $errorMessage = [];
         if ($label->task->board->user_id !== Auth::user()->id) {
-            return $this->sendError('unauthorized ', $errorMessage);
+            return $this->sendError('unauthorized ', $errorMessage, 403);
         }
 
         $input = $request->all();
-        $validator = Validator::make($input,[
+
+        $request->validate([
             'title' => 'required|max:255',
         ]);
 
-        if ($validator->fails()) {
-            return $this->sendError('validate error', $validator->errors());
-        }
-        
         if ($label->where('title','like',$request->title)->exists()) {
             return $this->sendError('the label Already have this title');
         }
@@ -88,7 +73,7 @@ class LabelController extends BaseController
     {
         $errorMessage = [];
         if ($label->task->board->user_id !== Auth::user()->id) {
-            return $this->sendError('unauthorized ', $errorMessage);
+            return $this->sendError('unauthorized ', $errorMessage, 403);
         }
 
         $label_cpy = $label;
