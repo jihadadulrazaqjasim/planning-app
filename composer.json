@@ -8,6 +8,10 @@
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
+<<<<<<< HEAD
+=======
+        "laravel/passport": "^11.5",
+>>>>>>> 2d543dc75c5dc73c9fb085a26b5bc57c494fbbf1
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7"
     },
@@ -60,6 +64,10 @@
             "pestphp/pest-plugin": true
         }
     },
+<<<<<<< HEAD
     "minimum-stability": "stable",
+=======
+    "minimum-stability": "dev",
+>>>>>>> 2d543dc75c5dc73c9fb085a26b5bc57c494fbbf1
     "prefer-stable": true
 }

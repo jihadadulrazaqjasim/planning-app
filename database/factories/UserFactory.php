@@ -19,6 +19,10 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+<<<<<<< HEAD
+=======
+            'type' => fake()->title(),
+>>>>>>> 2d543dc75c5dc73c9fb085a26b5bc57c494fbbf1
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
