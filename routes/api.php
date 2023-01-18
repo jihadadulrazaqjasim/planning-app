@@ -2,8 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\BoardController;
 use App\Http\Controllers\API\DeveloperController;
@@ -11,7 +9,6 @@ use App\Http\Controllers\API\LabelController;
 use App\Http\Controllers\API\TaskController;
 use App\Http\Controllers\API\OwnerController;
 use App\Http\Controllers\API\TesterController;
->>>>>>> 2d543dc75c5dc73c9fb085a26b5bc57c494fbbf1
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +21,6 @@ use App\Http\Controllers\API\TesterController;
 |
 */
 
-<<<<<<< HEAD
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-=======
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
@@ -92,4 +84,3 @@ Route::middleware(['auth:api', 'tester'])->group(function () {
 
     });
 });
->>>>>>> 2d543dc75c5dc73c9fb085a26b5bc57c494fbbf1
